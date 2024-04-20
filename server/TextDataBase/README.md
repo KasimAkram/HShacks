@@ -1,0 +1,1 @@
+Don't do this in practicual sitations! Never store stuff like passwords in clear text!
