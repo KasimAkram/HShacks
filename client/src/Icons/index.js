@@ -56,6 +56,7 @@ export { default as lockIcon } from './lockIcon.png';
 export { default as homeIcon } from './homeIcon.png'
 export { default as ChatExample } from './ChatExample.png';
 export { default as translateIcon } from './translateIcon.png';
+export { default as elderlyLady } from './elderlyLady.jpeg';
 export { default as connectingNetworkIcon } from './connectingNetworkIcon.png';
 export { default as appleIcon } from './appleIcon.png';
 export { default as facebookIcon } from './facebookIcon.png';

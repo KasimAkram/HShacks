@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import Modal from 'react-modal';
 import { customStyles } from './Modules/customStyles';
+import { onlineIcon } from './Icons';
+
+let useAPI = true // turn this false if you got the server running and you want to test out the api request to the server that you've set up
 
 const volunteerOptions = [
     "Community Cleanup",
@@ -21,6 +24,7 @@ const smallContainerStyle = {
     width: '250px',
     height: '250px'
 };
+
 const generateEvents = (center) => {
     const categories = [
         "Community Cleanup",
@@ -55,7 +59,8 @@ const generateEvents = (center) => {
 
     const events = categories.flatMap(category => {
         const randomName = names[Math.floor(Math.random() * names.length)];
-        const randomDays = Math.floor(Math.random() * 6) + 1; // Generate 1 to 6 days to ensure it's not today
+        const randomDays = Math.floor(Math.random() * 6) + 1; 
+        // i'm generating 1 to 6 days to ensure it's not today
         const eventDate = addDaysToDate(today, randomDays).toLocaleDateString('en-US', {
             weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
         });
@@ -85,25 +90,12 @@ const Search = ({ selectedVolunteeringOptions, setSelectedVolunteeringOptions })
     const [statusUI, showStatusUI] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
     const [events, setEvents] = useState([]);
-    const [map, setMap] = useState(null);
+    const redirectToHomePage = () => navigate('/');
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyClSmoUtoTchbsocJmVoUSbXfwWHFCoPOo"
     });
-
-    useEffect(() => {
-        if (!selectedVolunteeringOptions || !currentLocation) return; // Ensure currentLocation is not null
-        const allEvents = generateEvents(currentLocation);
-        const filteredEvents = allEvents.filter(event => selectedVolunteeringOptions.includes(event.category));
-        const sortedEvents = filteredEvents.sort((a, b) => {
-            const distA = Math.hypot(currentLocation.lat - a.location.lat, currentLocation.lng - a.location.lng);
-            const distB = Math.hypot(currentLocation.lat - b.location.lat, currentLocation.lng - b.location.lng);
-            return distA - distB;
-        });
-        setEvents(sortedEvents);
-    }, [selectedVolunteeringOptions, currentLocation]); // Include currentLocation in the dependency array
-
 
 
     useEffect(() => {
@@ -123,13 +115,38 @@ const Search = ({ selectedVolunteeringOptions, setSelectedVolunteeringOptions })
         }
     }, []);
 
-    const onLoad = useCallback(function callback(map) {
-        setMap(map);
-    }, []);
+    useEffect(() => {
+        if (!selectedVolunteeringOptions || !currentLocation) return;
 
-    const onUnmount = useCallback(function callback(map) {
-        setMap(null);
-    }, []);
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch(`http://localhost:3001/events?lat=${currentLocation.lat}&lng=${currentLocation.lng}`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Failed to fetch events:', error);
+                return []; 
+            }
+        };
+
+        (async () => {
+            const allEvents = await (useAPI ? generateEvents(currentLocation) : fetchEvents())
+            if (!allEvents || allEvents.length === 0) return;
+
+            const filteredEvents = allEvents.filter(event =>
+                selectedVolunteeringOptions.includes(event.category)
+            );
+
+            const sortedEvents = filteredEvents.sort((a, b) => {
+                const distA = Math.hypot(currentLocation.lat - a.location.lat, currentLocation.lng - a.location.lng);
+                const distB = Math.hypot(currentLocation.lat - b.location.lat, currentLocation.lng - b.location.lng);
+                return distA - distB;
+            });
+
+            setEvents(sortedEvents);
+        })();
+
+    }, [selectedVolunteeringOptions, currentLocation]);
 
     const openUI = useCallback((type) => {
         setFadeOut(false);
@@ -157,36 +174,41 @@ const Search = ({ selectedVolunteeringOptions, setSelectedVolunteeringOptions })
 
     if (!selectedVolunteeringOptions || !currentLocation) {
         return (
-            <div>
-                Loading...
+            <div className="rateLimitPopup">
+                <img src={onlineIcon} onClick={redirectToHomePage} alt="" />
+                <div className="ratelimit-content">
+                    Finding areas for volunteer hours near you...
+                </div>
+                <div className="searchLoadingInsideDiv infinateLoadingAnimation">
+                </div>
             </div>
         );
     }
 
     return (
         <div className='centerMainDiv'>
-                <Modal isOpen={statusUI} style={customStyles} className={`react-modal ${fadeOut ? 'fadeOut' : ''}`} onRequestClose={() => closeUI("status")} contentLabel="Modal" >
-                    <div className='statusModail'>
-                        <div className="socialModailText">Personalize My Experience</div>
-                        <div className="smallSocialModailText">{`Feel free to skip, you currently like ${selectedVolunteeringOptions.length} ${selectedVolunteeringOptions.length === 1 ? "thing" : "things"}`}</div>
-                        <div className="centeredSocialMediaDiv">
-                            <div className='whiteLineHorizontal' />
-                            <div className="volunteer-options">
-                                {volunteerOptions.map((option, index) => (
-                                    <div key={index} className={`bottomRightUiV3 ${selectedVolunteeringOptions.includes(option) ? '' : 'opacueBG'}`}
-                                        onClick={() => toggleVolunteerOption(option)}>
-                                        {option}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className='whiteLineHorizontal' />
+            <Modal isOpen={statusUI} style={customStyles} className={`react-modal ${fadeOut ? 'fadeOut' : ''}`} onRequestClose={() => closeUI("status")} contentLabel="Modal" >
+                <div className='statusModail'>
+                    <div className="socialModailText">Personalize My Experience</div>
+                    <div className="smallSocialModailText">{`Feel free to skip, you currently selected ${selectedVolunteeringOptions.length} ${selectedVolunteeringOptions.length === 1 ? "thing" : "things"}`}</div>
+                    <div className="centeredSocialMediaDiv">
+                        <div className='whiteLineHorizontal' />
+                        <div className="volunteer-options">
+                            {volunteerOptions.map((option, index) => (
+                                <div key={index} className={`bottomRightUiV3 ${selectedVolunteeringOptions.includes(option) ? '' : 'opacueBG'}`}
+                                    onClick={() => toggleVolunteerOption(option)}>
+                                    {option}
+                                </div>
+                            ))}
                         </div>
+                        <div className='whiteLineHorizontal' />
                     </div>
-                    <div className="bottom-right-ui-container modalBottomUi">
-                        <div className="bottomRightUiV3" onClick={() => { closeUI("status"); }}>Skip</div>
-                        <div className="bottomRightUiV3 greenBG" onClick={() => closeUI("status")}>Next</div>
-                    </div>
-                </Modal>
+                </div>
+                <div className="bottom-right-ui-container modalBottomUi">
+                    <div className="bottomRightUiV3" onClick={() => { closeUI("status"); }}>Skip</div>
+                    <div className="bottomRightUiV3 greenBG" onClick={() => closeUI("status")}>Next</div>
+                </div>
+            </Modal>
             <div className='searchMainDiv'>
                 <div className='searchListStyle'>
                     <h2>Events Near You</h2>
@@ -216,7 +238,7 @@ const Search = ({ selectedVolunteeringOptions, setSelectedVolunteeringOptions })
 
                                 {isLoaded && currentLocation && (
                                     <GoogleMap
-                                        mapContainerStyle={smallContainerStyle} center={specfiicLocation?.location} zoom={15.25} onLoad={onLoad} onUnmount={onUnmount}>
+                                        mapContainerStyle={smallContainerStyle} center={specfiicLocation?.location} zoom={15.25}>
                                         <Marker key={1} position={specfiicLocation.location} label={specfiicLocation.name} />
                                     </GoogleMap>
                                 )}
@@ -240,7 +262,7 @@ const Search = ({ selectedVolunteeringOptions, setSelectedVolunteeringOptions })
                 </Modal>
                 {isLoaded && currentLocation && (
                     <GoogleMap
-                        mapContainerStyle={containerStyle} center={currentLocation} zoom={15.25} onLoad={onLoad} onUnmount={onUnmount}>
+                        mapContainerStyle={containerStyle} center={currentLocation} zoom={15.25}>
                         {events.map((event, index) => (
                             <Marker key={index} position={event.location} label={event.name} />
                         ))}

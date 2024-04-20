@@ -250,14 +250,14 @@ body {
 }
 
 .searchListStyle {
-  width: 30vw;
+  width: 35vw;
   overflow-y: auto;
   height: 800px;
   padding: 5px;
 }
 
 .event-list-container {
-  width: 300px;
+  width: 400px;
   overflow-y: auto;
   height: 800px;
   margin-right: 20px;
@@ -332,4 +332,442 @@ body {
   display: flex;
   gap: 10px;
   flex-direction: column;
+}
+
+.akrRShopContainer {
+  margin-top: 1vw;
+  display: flex;
+  margin-bottom: 1.75vw;
+}
+
+.akrRShopClothingContainer {
+  margin-top: 1vw;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 1);
+  justify-content: center;
+  border-radius: 0.45vw 0.45vw 0 0;
+  align-items: center;
+  overflow-x: hidden;
+  padding: 1vw;
+}
+
+.akrRShopTop {
+  min-width: 1vw;
+  min-height: 22vw;
+  width: 50%;
+}
+
+.akrShirtContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.25vw;
+  flex-wrap: wrap;
+  max-width: 85%;
+  justify-content: center;
+}
+
+.akr-rblx-search-shop-input-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 7.5px;
+  margin-bottom: 1.5vw;
+}
+
+.akrShirtItem {
+  width: 13vw;
+  height: 14vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(60, 60, 60, 0.25);
+  border-radius: 12px;
+  transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.akrShirtItem:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.akrShirtItem:hover .akrShirtCreatorName {
+  color: rgba(224, 224, 224, 0.8);
+}
+.akrShirtItem:hover .robuxImg {
+  filter: invert(10%);
+}
+
+.akrShirtImg {
+  margin-top: 0.8vw;
+  width: 7.5vw;
+  height: 7.5vw;
+}
+
+.forceMaxWidthModal {
+  width: inherit !important;
+  max-width: 700px !important;
+}
+
+.additionalRightMargin {
+  margin-right: 50px;
+}
+
+.akrShirtName {
+  color: #2c2c2c;
+  font-weight: 800;
+  max-width: 90%;
+  text-align: center;
+  font-size: 1vw;
+  transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.akr-rblx-search-shop-input {
+  font-family: 'Montserrat', sans-serif;
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255);
+  font-size: 1vw;
+  font-weight: 700;
+  border: none;
+  height: 1.25vw;
+  border-radius: 0.5vw;
+  padding: 0.5vw 0.5vw 0.5vw 1.75vw;
+  transition: background-color 0.3s;
+  background-image: url('./Icons/searchIcon.png');
+  background-position: 0.5vw center;
+  background-repeat: no-repeat;
+  background-size: 1vw;
+  filter: invert(100%);
+}
+
+.akrTopText {
+  margin-top: 6vw;
+  margin-left: 5.5vw;
+  font-weight: 900;
+  font-size: 4vw;
+}
+
+.akrTopMidText {
+  margin-left: 5.5vw;
+  font-weight: 750;
+  font-size: 1.25vw;
+  margin-bottom: 10px;
+}
+
+.akrTopBetterMidText {
+  margin-top: 2.5vw;
+  margin-left: 7vw;
+  font-weight: 750;
+  font-size: 2.5vw;
+}
+
+.akrMidText {
+  margin-top: 0.2vw;
+  margin-left: 10vw;
+  font-weight: 750;
+  font-size: 1.35vw;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.akrMidMidText {
+  margin-top: 2.75vw;
+  font-weight: 700;
+  font-size: 1vw;
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 10vw;
+}
+
+.akrRShopImg {
+  height: 30vw;
+  margin-right: 1vw;
+  mask-image: radial-gradient(circle, rgba(0,0,0,1) -50%, rgba(0,0,0,0) 100%);
+
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left {
+  min-width: 60%;
+}
+
+.socialIconV2Right {
+  object-fit: cover;
+  height: 90%;
+  margin-left: 8px;
+  filter: brightness(0);
+  pointer-events: none;
+  user-select: none;
+}
+
+.modelRBLXiconV2Right {
+  height: 90%;
+  filter: brightness(0);
+  pointer-events: none;
+  user-select: none;
+}
+
+.akrShirtModelName {
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.75vw;
+  font-weight: 900;
+  letter-spacing: 0.05vw;
+}
+
+.akrShirtModelCreatorName {
+  margin-top: 0.15vw;
+  color: rgb(171, 171, 171);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.akrShirtModelDescrption {
+  margin-top: 0.5vw;
+  color: rgb(171, 171, 171);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.akrShirtCreatorName {
+  margin-top: 0.15vw;
+  color: rgba(44, 44, 44, 0.8);
+  font-size: 0.65vw;
+  font-weight: 750;
+  transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.robuxModelPrice {
+  margin-left: 0.5vw;
+  color: rgb(255, 255, 255);
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.robuxPrice {
+  margin-left: 0.5vw;
+  color: #2c2c2c;
+  font-size: 1.25vw;
+  font-weight: 800;
+}
+
+.akrShirtModalImg {
+  width: 12.5vw;
+  height: 12.5vw;
+}
+
+.robuxContainer {
+  margin-top: 0.5vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 15px;
+}
+
+.robuxContainerModel {
+  margin-top: 1vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.robuxImg {
+  width: 1.25vw;
+  height: 1.25vw;
+  filter: invert(90%);
+}
+
+.robuxModelImg {
+  width: 25px;
+  height: 25px;
+}
+
+.shirtImgAndButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.robloxGamesRowSystem {
+  display: flex;
+  flex-direction: row;
+}
+
+.akrRBLXShopModalContainer {
+  width: 35vw;
+  padding: 0.001vw;
+  display: flex;
+  align-items: center;
+  transition: transform 0.1s ease-in-out;
+}
+
+.getButtonRight {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1.5vw;
+  gap: 7.5px;
+}
+
+.getButton {
+  margin-top: 0.4vw !important;
+  text-align: center !important;
+  display: block !important;
+  font-weight: 800 !important;
+  color: rgba(255, 255, 255, 1) !important;
+  padding: 0.5vw 0.9vw !important;
+}
+
+.akrRBLXShopButton {
+  font-weight: 800;
+  position: reltive;
+  display: inline-flex;
+  border-radius: 7.5px;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1vw;
+  padding: 0.5vw 0.75vw;
+  background-color: rgba(255, 255, 255, 0.95);
+  transition: transform 0.1s ease-in-out;
+  color: black;
+  height: 1.25vw;
+  transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
+  margin-left: 10vw;
+  margin-bottom: 10px;
+}
+
+.akrRBLXShopButton:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+  transform: scale(1.07);
+}
+
+.shopClothingBanner {
+  color: black;
+  margin-top: 1.25vw;
+  font-size: 2.5vw;
+  font-weight: 850;
+  letter-spacing: 0.01vw;
+  margin-bottom: 1.25vw;
+}
+
+.akrRBLXButtonContainer {
+  right: 0;
+  margin-top: 1.2vw;
+  margin-right: 0.5vw;
+  display: flex;
+  gap: 10px;
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 800px) {
+  .left {
+      min-width: 100%;
+  }
+
+  .right {
+      min-width: 0%;
+  }
+
+  .akrRShopImg {
+      min-width: 0%;
+  }
+
+  .akrShirtItem {
+      height: 60vw;
+      width: 65vw;
+  }
+
+  .akrShirtImg {
+      width: 30vw;
+      height: 30vw;
+  }
+
+  .akrShirtName {
+      font-size: 4vw;
+  }
+
+  .akrRBLXShopButton {
+      font-weight: 800;
+      position: reltive;
+      display: inline-flex;
+      border-radius: 1.6vw;
+      align-items: center;
+      cursor: pointer;
+      font-size: 4vw;
+      padding: 2vw 3vw;
+      background-color: rgba(255, 255, 255, 0.95);
+      transition: transform 0.1s ease-in-out;
+      color: black;
+      height: 5vw;
+      transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
+  }
+
+  .akrShirtCreatorName {
+      margin-top: 0.6vw;
+      font-size: 2.25vw;
+  }
+
+  .akrRBLXButtonContainer {
+      justify-content: center;
+  }
+
+  .robuxPrice {
+      margin-left: 1.5vw;
+      font-size: 5vw;
+  }
+
+  .robuxImg {
+      height: 5vw;
+      width: 5vw;
+  }
+
+  .robuxContainer {
+      margin-top: 2vw;
+  }
+
+  .akr-rblx-search-shop-input {
+      font-family: 'Montserrat', sans-serif;
+      width: 75%;
+      font-size: 3.5vw;
+      border: none;
+      height: 5vw;
+      border-radius: 1.5vw;
+      padding: 0.5vw 0.5vw 0.5vw 6vw;
+      transition: background-color 0.3s;
+      background-image: url('./Icons/searchIcon.png');
+      background-position: 1.5vw center;
+      background-repeat: no-repeat;
+      background-size: 3.5vw;
+      filter: invert(100%);
+  }
+
+  .akrShirtModalImg {
+      width: 150px;
+      height: 150px;
+  }
+
+  .robloxGamesRowSystem {
+      flex-direction: column;
+  }
+
+  .additionalRightMargin {
+      margin-right: inherit;
+  }
+
+  .selectAkrShirtTextContainer {
+      justify-content: center;
+      align-items: center;
+  }
+
+  .shopClothingBanner {
+      margin-top: 4vw;
+      font-size: 5vw;
+      margin-bottom: 4vw;
+  }
+
+  .statusModail{
+    width: inherit;
+  }
 }
